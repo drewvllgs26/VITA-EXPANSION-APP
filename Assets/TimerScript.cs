@@ -1,3 +1,82 @@
+// using System.Collections;
+// using System.Collections.Generic;
+// using UnityEngine;
+// using UnityEngine.UI;
+// using TMPro;
+
+// public class TimerScript : MonoBehaviour
+// {
+//     public float timeRemaining = 120;
+//     public bool timeIsRunning = false;
+//     public AudioSource audioSource;
+//     public TMP_Text timeText;
+
+//     void Start()
+//     {
+//         if (timeText == null)
+//         {
+//             Debug.LogError("Error: timeText is not assigned!");
+//         }
+//     }
+
+//     void Update()
+//     {
+//         if (timeIsRunning)
+//         {
+//             if (timeRemaining > 0)
+//             {
+//                 timeRemaining -= Time.deltaTime;
+//                 DisplayTime(timeRemaining);
+//             }
+//             else
+//             {
+//                 timeIsRunning = false;
+//                 timeRemaining = 0;
+//                 DisplayTime(timeRemaining); 
+//                 timeText.text = string.Format("Time's Up!");
+//                 timeText.fontSize = 120;
+//             }
+//         }
+//     }
+
+
+//     public void StartTimer()
+//     {
+//         if (timeIsRunning)
+//         {
+//         timeIsRunning = false;
+//         audioSource.Pause();
+//         }
+//         else
+//         {
+//         timeIsRunning = true;
+//         audioSource.Play();
+//         }
+//     }
+
+
+//     void DisplayTime(float timeToDisplay)
+//     {
+
+//     timeToDisplay = Mathf.Max(timeToDisplay, 0);
+
+//     float minutes = Mathf.FloorToInt(timeToDisplay / 60);  
+//     float seconds = Mathf.FloorToInt(timeToDisplay % 60);  
+
+
+//     timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+//     }
+
+//     public void ResetTimer()
+//     {
+//         timeIsRunning = false;
+//         audioSource.Stop();
+//         timeRemaining = 120;
+//         timeText.text = string.Format("2:00");
+//         timeText.fontSize = 230;
+//     }
+
+// }
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,59 +85,86 @@ using TMPro;
 
 public class TimerScript : MonoBehaviour
 {
-    public float timeRemaining = 180;  // Set to 3 minutes (180 seconds)
+    public float timeRemaining = 120;
     public bool timeIsRunning = false;
     public AudioSource audioSource;
     public TMP_Text timeText;
+    public GameObject[] objectsToDisable; // Array of GameObjects to disable when timer reaches 0
 
-    // Start is called before the first frame update
     void Start()
     {
-        // Check if the timeText is not assigned
         if (timeText == null)
         {
             Debug.LogError("Error: timeText is not assigned!");
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (timeIsRunning)
         {
             if (timeRemaining > 0)
             {
-                timeRemaining -= Time.deltaTime;  // Subtract to countdown
+                timeRemaining -= Time.deltaTime;
                 DisplayTime(timeRemaining);
             }
             else
             {
-                // Timer reaches zero, stop it
                 timeIsRunning = false;
                 timeRemaining = 0;
-                DisplayTime(timeRemaining);  // Ensure the time is shown as 00:00 when it finishes
-                audioSource.Play();
+                audioSource.Stop();
+                DisplayTime(timeRemaining); 
+                timeText.text = "Time's Up!";
+                timeText.fontSize = 120;
+                
+                // Disable specified GameObjects
+                DisableObjects();
             }
         }
     }
 
-    // This function starts the timer when the button is clicked
     public void StartTimer()
     {
-        timeIsRunning = true;
+        if (timeIsRunning)
+        {
+            timeIsRunning = false;
+            audioSource.Pause();
+        }
+        else
+        {
+            timeIsRunning = true;
+            audioSource.Play();
+        }
     }
 
-    // This function will display the time in the format "minutes : seconds"
     void DisplayTime(float timeToDisplay)
     {
-    // Make sure timeToDisplay is not negative
-    timeToDisplay = Mathf.Max(timeToDisplay, 0);
+        timeToDisplay = Mathf.Max(timeToDisplay, 0);
 
-    // Get minutes and seconds
-    float minutes = Mathf.FloorToInt(timeToDisplay / 60);  // Get minutes
-    float seconds = Mathf.FloorToInt(timeToDisplay % 60);  // Get seconds
+        float minutes = Mathf.FloorToInt(timeToDisplay / 60);  
+        float seconds = Mathf.FloorToInt(timeToDisplay % 60);  
 
-    // Display time in "MM : SS" format
-    timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    public void ResetTimer()
+    {
+        timeIsRunning = false;
+        audioSource.Stop();
+        timeRemaining = 120;
+        timeText.text = "2:00";
+        timeText.fontSize = 230;
+    }
+
+    // Method to disable GameObjects
+    private void DisableObjects()
+    {
+        foreach (GameObject obj in objectsToDisable)
+        {
+            if (obj != null)
+            {
+                obj.SetActive(false);
+            }
+        }
     }
 }

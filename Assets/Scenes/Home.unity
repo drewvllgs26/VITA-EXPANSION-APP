@@ -608,7 +608,7 @@ RectTransform:
   m_GameObject: {fileID: 445946852}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 917021.94}
-  m_LocalScale: {x: 0.02486562, y: 0.045253523, z: 170.56683}
+  m_LocalScale: {x: 0.023622338, y: 0.045253523, z: 170.56683}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 320914728}
@@ -718,7 +718,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8a2f60ebb566e484a9dda15837cc5ac6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ecae66524b26dac42be745da92023f79, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -766,7 +766,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 0e545435554a3d142b067ece486667d4, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.218
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1496,7 +1496,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 9747784d997fead47b14de719fe963a5, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.35
   m_Pitch: 1
   Loop: 0
   Mute: 0
